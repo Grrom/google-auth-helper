@@ -8,8 +8,11 @@ const PORT = FileSystemHelper.getAuthListenerPort();
 
 let authHelper = AuthHelper.getInstance();
 
+//TODO: define the scopes before starting
+let scopes: string[] = [];
+
 console.log(
-  "Go to this link to authorize the app: " + authHelper.generateAuthLink()
+  "Go to this link to authorize the app: " + authHelper.generateAuthLink(scopes)
 );
 
 app.get("/", async (req, res) => {

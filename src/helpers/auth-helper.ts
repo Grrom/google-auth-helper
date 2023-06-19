@@ -16,11 +16,6 @@ export default class AuthHelper {
 
   private static instance: AuthHelper;
 
-  scopes: string[] = [
-    "https://www.googleapis.com/auth/fitness.activity.read",
-    "https://www.googleapis.com/auth/fitness.sleep.read",
-  ];
-
   private constructor() {
     const tokenDetails: TokenDetails = FileSystemHelper.getTokenDetails();
     const clientData: ClientData = FileSystemHelper.getClientData();
@@ -98,10 +93,10 @@ export default class AuthHelper {
     return tokens;
   };
 
-  generateAuthLink = (): URL => {
+  generateAuthLink = (scopes: string[]): URL => {
     const authorizationUrl = this.oauth2Client.generateAuthUrl({
       access_type: "offline",
-      scope: this.scopes,
+      scope: scopes,
       include_granted_scopes: true,
     });
 
