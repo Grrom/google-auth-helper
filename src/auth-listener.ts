@@ -12,7 +12,8 @@ let authHelper = AuthHelper.getInstance();
 let scopes: string[] = [];
 
 console.log(
-  "Go to this link to authorize the app: " + authHelper.generateAuthLink(scopes)
+  "Go to this link to authorize the app 👉 \n" +
+    authHelper.generateAuthLink(scopes)
 );
 
 app.get("/", async (req, res) => {

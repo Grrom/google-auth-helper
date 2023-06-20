@@ -10,13 +10,6 @@ export default class FileSystemHelper {
   private static readonly tokenDetailsPath =
     process.env.TOKEN_DETAILS_PATH ?? "token-details.json";
 
-  static getTokenDetails = (): TokenDetails => {
-    const jsonString = fs.readFileSync(this.tokenDetailsPath, "utf8");
-    const jsonObject = JSON.parse(jsonString);
-
-    return jsonObject;
-  };
-
   static getClientData = (): ClientData => {
     return {
       clientId: process.env.CLIENT_ID ?? "",
@@ -29,7 +22,11 @@ export default class FileSystemHelper {
     parseInt(process.env.AUTH_LISTENER_PORT ?? "") || 4000;
 
   static saveAuthToken = (tokens: Credentials) => {
-    const tokenDetails: TokenDetails = this.getTokenDetails();
+    const tokenDetails: TokenDetails = {
+      authToken: "",
+      refreshToken: "",
+      tokenExpiryInMillis: 0,
+    };
     tokenDetails.authToken = tokens.access_token!;
     tokenDetails.refreshToken = tokens.refresh_token!;
     tokenDetails.tokenExpiryInMillis = tokens.expiry_date!;
